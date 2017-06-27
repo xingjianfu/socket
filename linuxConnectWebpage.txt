@@ -1,8 +1,0 @@
-http://igerrit.storm/
-
-dns-nameserver 172.26.10.91
-把这个写入 /etc/network/interface文件   让linux上网igerrit
-
-repo init -u ssh://xingjianfu@igerrit.storm:29418/Src/iAutoPlatform/iAuto3/manifest
-
-
