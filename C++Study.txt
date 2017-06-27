@@ -1,0 +1,220 @@
+
+
+
+大尾顺序
+
+地址的低位存储值的高位
+
+
+
+vector <int *> a 相当于二维数组
+
+即声明类模板时要先加上一行template <class 类型参数名>
+
+1）先写出一个实际的类。其语义明确，含义清楚。一般不会错。
+2）将该类中准备改变的类型名(比如Int要改为char、double等)改为一个自己指定的虚拟类型名(比如上面例子中的numtype)。
+3）在类的声明前加一行:
+     template <class 虚拟类型参数>。
+
+模板类声明 Compare<double> cmp(2.3, 5.8);
+
+
+(1). 指针类型字符串不容许修改 
+
+char *str1 = "1234"
+
+str1="5" 错误
+
+
+sizeof 是一个运算符， strlen 是一个函数， sizeof 计算字节数， 
+
+char str[20]="0123456789"; 
+int   a=strlen(str); /*a=10;strlen 计算字符串的长度，以\0'为字符串结束标记。 
+int   b=sizeof(str); /*b=20;sizeof 计算的则是分配的数组str[20] 所占的内存空间的大小，不受里面存储的内容影响
+
+
+
+(1)只有一个const，如果const位于*左侧，表示指针所指数据是常量，不能通过解引用修改该数据；指针本身是变量，可以指向其他的内存单元。
+
+(2)只有一个const，如果const位于*右侧，表示指针本身是常量，不能指向其他内存地址；指针所指的数据可以通过解引用修改。
+
+(3)两个const，*左右各一个，表示指针和指针所指数据都不能修改。
+
+
+左值有向 *p 即，指向的值不变 ， p 指向不变
+
+2.const修饰函数参数
+
+　　传递过来的参数在函数内不可以改变，与上面修饰变量时的性质一样。
+
+void testModifyConst(const int _x) {
+     _x=5;　　　///编译出错
+}
+
+ void testConstFunction(int _x) const
+{
+}
+
+3
+
+(1)const修饰的成员函数不能修改任何的成员变量(mutable修饰的变量除外)
+
+(2)const成员函数不能调用非onst成员函数，因为非const成员函数可以会修改成员变量
+
+任何不会修改数据成员的函数都应该声明为const 类型
+
+宏定义 ： 一定要先替换后计算
+
+
+数组指针和指针数组都是二级指针
+
+char *a[] = {“hello”,"te"}; 指针数组
+
+char **p = a ;
+
+int （*p）[2] 数组指针
+
+int a[2] = {1,2}
+
+p =&a 
+
+
+指针的类型：除去变量剩下的部分
+
+指针指向的类型  ：变量加*，剩下的部分  char **p **p类型为char *p 类型为char *
+
+
+指针作为参数，一级指针为参数 ：采用*P作为左值，改变指向的值
+
+             二级指针作为参数 ： 采用*P作为左值，改变指向      
+
+
+
+char * a = "ss";
+
+cout << a 输出ss
+
+cout << *a 输出 s
+
+const char * a = "ss "
+
+*a 不能改变，不能改变值
+
+a 可以改变，改变指向       
+
+
+与char*不同的是，string不一定以NULL('\0')结束。string长度可以根据length()得到，string可以根据下标访问。所以，不能将string直接赋值给char*
+
+string 转 char *  采用 c_str()
+
+1 string str=“world”;
+2 const char *p = str.c_str() 转换为const char *
+
+1 string str = "hello";
+2 const char* p = str.data();转换为const char *
+
+
+char * 转 string
+ string s;
+2 char *p = "hello";//直接赋值
+3 s = p;
+
+不能cout <<S 只能cout << p
+
+
+
+继承中，函数参数中，子类可以传递给父类，父类不能传递给子类
+
+
+运算符重载
+
+class A
+{
+    A(int d):data(d) {}
+    A operator+(A& a);
+
+private:
+  int data;
+};
+
+A A::operator+(A &a)
+{
+   return A(data+a.data);
+}
+
+int main() {
+
+
+     A a1(1),a2(2),a3(3);
+
+     a1 = a2+a3;
+
+    等价于 a1 =a2.operator+(a3);
+      
+}
+
+C++ 继承，
+
+fu *p = new zi();
+
+四种情况，父类有，子类没有，
+
+  p 调用父类的
+
+父类子类同名，且父类不是虚的
+
+ p调用子类的
+
+父类子类同名，父类是虚的，
+
+p 调用子类的
+
+想要调用子类的，只有通过动态转换，
+
+ CDerived * pD2 = dynamic_cast<CDerived * > (pB2); 
+
+
+其次，从基类指针调用派生类函数只有两种方法： 
+
+1。如果是虚函数，直接调用 
+
+2。转换为派生类指针再调用 
+
+
+C++支持两种多态性：编译时多态性，运行时多态性。
+
+a.编译时多态性：通过重载函数和运算符重载实现。
+
+b运行时多态性：通过虚函数和继承实现。
+
+#include <iostream>
+std::cout << “time” << std::endl;
+
+system("pause"); 暂定，按任意键继续
+system("cls");  清屏
+
+无参数写 （void）
+有无返回值，都要写return（*********不能忘************）
+
+while ((width < 20) || (width > 35)) {  两个条件要加（）
+
+构造函数初始化列表中要对所有成员变量赋初值
+
+new 指针要判断是否为空，为空则判断失败。
+if (NULL == m_psnake) {
+std::cout <<"new snake error" << std::endl;
+}
+
+用完指针要delete if (NULL != m_psnake) {
+	              delete m_psnake;
+		          m_psnake = NULL;
+	            }  
+std::vector< std::vector<int> > 二维vector
+
+尽量把一部分代码组成一个函数
+
+空指针的值为0 ，即地址为0；
+
+改变指针指向的值，用一个指针，改变指针，用二级指针改变指针的值（即地址）
+
+

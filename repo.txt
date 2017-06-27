@@ -1,0 +1,21 @@
+1.  Repo同步
+    同步repo代码
+    Repo sync
+
+//更新指定仓库代码
+repo sync system/core
+ 
+
+2.   初始化分支
+   Sync成功后，所有的Git库都处于 no branch状态，不能进行操作
+     yangfei@YYRD-4:~/test$ repo branch
+             (no branches)
+3. 初化分支
+Repo start master –all
+    yangfei@YYRD-4:~/test$ repo start master --all
+       Starting master: 100% (45/45), done.
+   --all意思为对所有项目操作，如果对某个项目操作如下
+  
+Repo start master(分支名) cmd1(项目名)
+//开启master分支
+repo start master system/core

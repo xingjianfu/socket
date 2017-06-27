@@ -1,0 +1,177 @@
+git init 建立仓库
+
+ls -ah 看见完整目录
+
+git add 文件名
+
+git commit -m ""描述
+
+git status 查看状态
+
+git diff 看看和之前有什么不同
+
+git log --pretty=oneline
+
+git reset --hard HEAD^ 回到上一个版本
+
+git reset --hard 去到指定版本
+
+git reflog 记录每一次命令
+
+工作区（Working Directory）
+
+就是你在电脑里能看到的目录，比如我的文件夹就是一个工作区：
+
+版本库（Repository）
+
+工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
+
+Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，
+
+还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+
+管理修改
+
+如果你修改了，但是没有add到暂存区，这时候你commit 的是暂存区的，之前的修改并没有提交
+
+
+撤销修改
+
+
+场景一： 当你该乱了工作区某文件的内容，想直接丢弃修改时候，用 git checkout --file
+
+场景二： 当你该乱了工作区某个文件时候，还添加到了暂存区，
+
+第一步骤，git reset HEAD file 
+
+回到场景一
+
+场景三，已经提交了不合适的修改到版本库，版本退回， git reset --hard 去到指定版本
+
+前提是没有推送到远程库。
+
+误删除
+
+git checkout 用版本库里面的替换工作区中的，无论删除还是修改，一键还原
+
+如果一个文件被提交到版本库中，那么永远不需要担心误删除，
+
+git checkout --file
+
+git rm 用来删除一个文件，将版本库中也删除掉
+
+远程库： 就是服务器中的库
+
+关联一个远程库，使用 git remote add origin git@server-name:path/repo-name.git
+
+
+origin 是远程库的名字，后边是本地路径
+
+关联后，使用 git push -u origin master 第一次推送 master 分支的所有内容
+
+此后，每次本地提交后，就可以 git push origin master 提交最新修改； 去掉一个u
+
+克隆一个远程库到本地
+ 
+git clone git@gitbhub.com:michaelliao/gitskill,git
+
+
+6 分支管理:你的工作不影响别人，多好呀！！！
+
+1 创建与合并分支
+
+查看分支： git branch
+
+创建分支： git branch name
+
+切换分支： git checkout 名字
+
+创建+切换 git checkout -b name
+
+合并某分支到当前分支 git merge name
+
+删除分支： git branch -d name
+
+当git 无法自动合并分支时，就必须首先解决冲突，解决冲突后，再提交，合并完成，
+
+用 git log --graph 命令可以看到分支合并图
+
+git log --graph --pretty=oneline -- abbrev-commit 
+
+合并分支时，加上 --no-ff 参数就可以用普通模式合并，合并后的历史有分支，能看出来做过合并，而fast forward 合并就看不出来曾经做过合并
+
+
+Bug 分支
+
+
+git stash 把当前工作现场储藏起来，等以后恢复现场后继续工作
+
+假如bug 在master上，就从master上创建临时分支，
+
+git checkout master  切换分支到master
+
+git checkout -b issue-101  从master 上切换分支到issue-101
+
+git add readme.txt  修改好后添加到暂存区
+
+git commit -m "fix bug 101"  提交
+
+git checkout master   再切换到master 分支
+
+git merge --no-ff -m 'merge bug fix 101" issue-101  合并分支到master上面
+
+git branch -d issue-101 删除临时分支
+
+git checkout dev  bug已经解决，切换到之前工作的dev分支
+
+git stash list 查看你的存储起来的列表
+
+回复之前，
+
+方法一：
+
+git stash apply 恢复，但是恢复后，stash 内容并不删除，你需要git stash drop 来删除
+
+方法二：git stash pop ，恢复的同时把stash 内容也删除了
+
+
+开发一个新功能，最好新建一个分支
+
+如果新分支没有合并，就想删除，可以用命令
+
+git branch -D name 
+
+多人协作
+
+查看远程分支信息 git remote -v 
+
+本地新建的分支如果不推送到远程，对其他人就是不可见的
+
+从本地推送分支，使用 git push origin branch-name 如果推送失败，先用git pull抓取远程的新提交
+
+如果合并有冲突，解决冲突，并在本地提交
+
+没有冲突或者解决冲突，git push origin branch-name
+
+git pull 之后提示“no tracking information” ，则说明本地分支和远程分支的链接关系没有创建，
+
+用命令
+
+git branch --set-upstream branch-name origin/branch-name
+
+
+git checkout -b dev origin/dev
+
+git commit -m "add /usr/bin/env"
+
+git push origin dev
+
+
+
+
+
+
+
+
+
+

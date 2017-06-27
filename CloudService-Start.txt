@@ -1,0 +1,18 @@
+模拟器的话，需要先配置下环境
+
+mount -o rw,remount /system
+
+配置默认路由
+ip route add default via 10.0.2.2 dev eth0
+
+配置DNS服务器地址
+echo "nameserver 172.26.10.91" > /etc/resolv.conf
+
+如果是访问https的加密网站，需要配置时间
+date  0504155517
+
+logcfg -c iCloud:*
+
+logcat -s iCloud &
+
+svrmgr_tool ls 查看服务启动情况
