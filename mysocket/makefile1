@@ -1,0 +1,25 @@
+COMMON_SRC:= Filerw.cpp Speed.cpp Socket.cpp	
+
+SERVER_SRC:= Server.cpp MainServer.cpp
+			
+CLIENT_SRC:= Client.cpp MainClient.cpp
+		
+CLIENT := $COMMON_SRC$CLIENT_SRC
+
+OUT := /Home/xjf/communication/
+
+COMMON_PATH := /Home/xjf/communication/
+CLIENT_PATH := Client
+SERVER_PATH := Server
+CLIENT_FINALLY :=$COMMON_PATH$CLIENT_PATH
+
+
+g++ $CLIENT -o CLIENT_FINALLY
+.PHONY: src
+src:
+	g++	$CLIENT	-o	CLIENT_FINALLY
+
+.PHONY: clean
+clean:
+	-rm edit $(objects)
+
